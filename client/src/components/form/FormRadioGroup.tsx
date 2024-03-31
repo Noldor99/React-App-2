@@ -9,6 +9,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { cn } from "@/lib/utils"
 
 export type TRadioItem = {
   value: string
@@ -18,9 +19,14 @@ export type TRadioItem = {
 interface FormRadioGroupProps {
   name: string
   radioItems: TRadioItem[]
+  grid?: boolean
 }
 
-export function FormRadioGroup({ name, radioItems }: FormRadioGroupProps) {
+export function FormRadioGroup({
+  name,
+  radioItems,
+  grid,
+}: FormRadioGroupProps) {
   const form = useFormContext()
 
   return (
@@ -28,17 +34,20 @@ export function FormRadioGroup({ name, radioItems }: FormRadioGroupProps) {
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem className="space-y-3">
+        <FormItem className={cn(grid ? "space-y-3" : "")}>
           <FormControl>
             <RadioGroup
               onValueChange={field.onChange}
               defaultValue={field.value}
-              className="flex flex-col space-y-1"
+              className={cn("flex", grid ? "flex-col space-y-1" : "space-x-2")}
             >
               {radioItems.map((item) => (
                 <FormItem
                   key={item.value}
-                  className="flex items-center space-x-3 space-y-0"
+                  className={cn(
+                    "flex items-center ",
+                    grid ? "space-x-3" : "space-x-1 justify-center"
+                  )}
                 >
                   <FormControl>
                     <RadioGroupItem value={item.value} />

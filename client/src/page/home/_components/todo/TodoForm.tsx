@@ -22,6 +22,7 @@ import FormCalendar from "@/components/form/FormCalendar"
 import { variantItems } from "./Constants"
 import { historyToSlice } from "@/utils"
 import { useTypedDispatch } from "@/hook/useTypedDispatch"
+import { FormTextarea } from "@/components/form/FormTextarea"
 
 type TodoFormPropsType = {
   todo?: ITodo
@@ -118,18 +119,26 @@ export const TodoForm: FC<TodoFormPropsType> = (props: TodoFormPropsType) => {
         <form className="w-full " onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col items-start justify-between gap-4">
             <FormInput name="title" placeholder="Title" />
-            <FormInput name="description" placeholder="Description" />
+            <FormTextarea name="description" placeholder="Description" />
 
             <FormCalendar name="deadline" />
 
             <div className="p-[10px] mt-2 flex justify-between w-full">
               <div>
                 <p className="mb-2">Variant:</p>
-                <FormRadioGroup name="variant" radioItems={variantItems} />
+                <FormRadioGroup
+                  name="variant"
+                  radioItems={variantItems}
+                  grid={true}
+                />
               </div>
               <div>
                 <p className="mb-2">Priority:</p>
-                <FormRadioGroup name="priority" radioItems={priorityItems} />
+                <FormRadioGroup
+                  name="priority"
+                  radioItems={priorityItems}
+                  grid={true}
+                />
               </div>
             </div>
           </div>
@@ -147,8 +156,8 @@ export const TodoForm: FC<TodoFormPropsType> = (props: TodoFormPropsType) => {
                   ? !formState.isValid
                     ? true
                     : formState.isDirty
-                    ? false
-                    : true
+                      ? false
+                      : true
                   : false
               }
             >

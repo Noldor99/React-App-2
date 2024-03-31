@@ -21,7 +21,7 @@ export function FormTextarea({ name, placeholder }: TextareaFormProps) {
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem>
+        <FormItem className="w-full">
           <FormControl>
             <Textarea
               placeholder={placeholder}
