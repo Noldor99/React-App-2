@@ -12,7 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 
-interface DialogDeleteProps {
+export interface DialogDeleteProps {
   nameDelete: string
   onClick: () => void
   children?: ReactNode

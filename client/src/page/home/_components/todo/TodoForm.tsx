@@ -23,7 +23,7 @@ import { variantItems } from "./Constants"
 import { historyToSlice } from "@/utils"
 import { useTypedDispatch } from "@/hook/useTypedDispatch"
 
-type TodoFormPropsType = {
+export type TodoFormPropsType = {
   todo?: ITodo
   handleClose: () => void
   boardId: string
@@ -113,7 +113,7 @@ export const TodoForm: FC<TodoFormPropsType> = (props: TodoFormPropsType) => {
   }
 
   return (
-    <div className="my-2  flex items-center justify-center gap-2">
+    <div className="my-2 flex items-center justify-center gap-2">
       <Form {...form}>
         <form className="w-full " onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col items-start justify-between gap-4">
@@ -147,8 +147,8 @@ export const TodoForm: FC<TodoFormPropsType> = (props: TodoFormPropsType) => {
                   ? !formState.isValid
                     ? true
                     : formState.isDirty
-                    ? false
-                    : true
+                      ? false
+                      : true
                   : false
               }
             >

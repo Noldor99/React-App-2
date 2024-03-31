@@ -17,12 +17,12 @@ import {
 
 import { BoardForm } from "./BoardForm"
 
-interface DialogRoomProps {
+export interface DialogBoardFormProps {
   id?: string | undefined
   children?: ReactNode
 }
 
-export function DialogBoardForm({ id, children }: DialogRoomProps) {
+export function DialogBoardForm({ id, children }: DialogBoardFormProps) {
   const { data: board, isFetched } = useGetBoardById(id!)
   const [open, setOpen] = useState(false)
 
