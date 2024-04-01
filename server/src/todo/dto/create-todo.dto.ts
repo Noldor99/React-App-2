@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsIn, IsNotEmpty, IsString, Length } from 'class-validator';
 import { TodoPriority, TodoVariant } from '../type';
 import { CreateDateColumn } from 'typeorm';
-import { IsUnique } from 'src/validation/is-unique';
+import { IsUnique } from '../../validation/is-unique';
 
 export class CreateTodoDto {
 
@@ -18,7 +18,7 @@ export class CreateTodoDto {
   @IsNotEmpty()
   @IsString()
   @Length(3, 70)
-  @IsUnique({ tableName: 'todo', column: 'title' })
+  // @IsUnique({ tableName: 'todo', column: 'title' })
   readonly title: string;
 
   @ApiProperty({

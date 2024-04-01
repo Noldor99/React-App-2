@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { TodoPriority, TodoVariant } from './type';
-import { Board } from 'src/board/board.entity';
+import { Board } from '../board/board.entity';
 
 @Entity('todo')
 export class Todo {

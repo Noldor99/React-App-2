@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, Length } from 'class-validator';
-import { IsUnique } from 'src/validation/is-unique';
+import { IsUnique } from '../../validation/is-unique';
 
 export class CreateBoardDto {
   @ApiProperty({
@@ -9,7 +9,7 @@ export class CreateBoardDto {
   @IsNotEmpty()
   @IsString()
   @Length(3, 255)
-  @IsUnique({ tableName: 'board', column: 'title' })
+  // @IsUnique({ tableName: 'board', column: 'title' })
   readonly title: string;
 
 }

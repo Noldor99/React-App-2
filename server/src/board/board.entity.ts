@@ -1,4 +1,4 @@
-import { Todo } from 'src/todo/todo.entity';
+import { Todo } from '../todo/todo.entity';
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('board')
@@ -11,7 +11,7 @@ export class Board {
 
   @OneToMany(() => Todo, (todo) => todo.board, { eager: true },)
   @JoinColumn({ name: 'boardId' })
-  todos: Todo;
+  todos: Todo[];
 
   @CreateDateColumn()
   createdAt: Date
