@@ -24,7 +24,7 @@
 1. **Клонуйте репозиторій:**
 
    ```bash
-   git clone https://github.com/Noldor99/TaskBoardOther
+   git clone https://github.com/Noldor99/React-App-2
 
    ```
 
