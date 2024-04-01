@@ -11,7 +11,7 @@ export class Board {
 
   @OneToMany(() => Todo, (todo) => todo.board, { eager: true },)
   @JoinColumn({ name: 'boardId' })
-  todos: Todo;
+  todos: Todo[];
 
   @CreateDateColumn()
   createdAt: Date

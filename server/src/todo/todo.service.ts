@@ -5,22 +5,19 @@ import { Repository } from "typeorm"
 import { CreateTodoDto } from "./dto/create-todo.dto"
 import { QueryTodoParamsDto } from "./dto/query-todo-params.dto"
 import { UpdateTodoDto } from "./dto/update-todo.dto"
-import { BoardService } from "src/board/board.service"
 
 @Injectable()
 export class TodoService {
   constructor(
     @InjectRepository(Todo)
     private todoRepository: Repository<Todo>,
-    private boardService: BoardService,
   ) { }
 
 
   async create(dto: CreateTodoDto): Promise<Todo> {
-    const board = await this.boardService.findOne(dto.boardId);
     const todo = this.todoRepository.create({
       ...dto,
-      board,
+      board: { id: dto.boardId },
 
     });
     return await this.todoRepository.save(todo);
