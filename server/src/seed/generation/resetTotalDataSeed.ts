@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Board } from 'src/board/board.entity';
 import { Todo } from 'src/todo/todo.entity';
+import { Todolist } from 'src/todolist/todolist.entity';
 
 import { Repository } from 'typeorm';
 
@@ -9,12 +10,14 @@ import { Repository } from 'typeorm';
 export class ResetTotalDataSeed {
   constructor(
     @InjectRepository(Todo) private todoRepository: Repository<Todo>,
+    @InjectRepository(Board) private todolistRepository: Repository<Todolist>,
     @InjectRepository(Board) private boardRepository: Repository<Board>,
   ) { }
 
   async seed(): Promise<void> {
     const repositories = [
       this.todoRepository,
+      this.todolistRepository,
       this.boardRepository,
     ];
 

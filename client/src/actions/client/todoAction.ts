@@ -4,7 +4,7 @@ import { api } from '@/lib/axios'
 
 import { AxiosResponse } from 'axios'
 
-import { ITodo, ITodos, TodoPriority, TodoVariant } from '@/types/todo';
+import { ITodo, ITodos, TodoPriority } from '@/types/todo';
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -13,7 +13,7 @@ export function getValues<T extends Record<string, any>>(obj: T) {
 }
 
 export const TodoSchema = z.object({
-  boardId: z.string().optional(),
+  todolistId: z.string().optional(),
   title: z
     .string()
     .min(3, { message: 'title must be at least 3 characters.' })
@@ -22,11 +22,7 @@ export const TodoSchema = z.object({
     .string()
     .min(3, { message: 'Description must be at least 3 characters.' })
     .max(300, { message: 'Description must be at most 300 characters.' }),
-  variant: z.enum(getValues(TodoVariant), {
-    errorMap: () => ({
-      message: 'Please select your variant',
-    }),
-  }),
+  variant: z.string().optional(),
   priority: z.enum(getValues(TodoPriority), {
     errorMap: () => ({
       message: 'Priority select your variant',
@@ -41,7 +37,7 @@ export interface QueryTodoParams {
   page?: string;
   limit?: string;
   boardId?: string
-  variant?: TodoVariant;
+
 }
 
 export interface ApiTodo {

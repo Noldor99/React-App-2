@@ -1,6 +1,6 @@
 "use client"
 
-import { useGetTodoById } from "@/ahooks/useTodo"
+import { useGetTodolistById } from "@/ahooks/useTodolist"
 
 import { ReactNode, useState } from "react"
 
@@ -15,17 +15,16 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 
-import { TodoForm } from "./TodoForm"
+import { TodolistForm } from "./TodolistForm"
 
 interface DialogRoomProps {
   id?: string | undefined
-  todolistId: string
+  boardId?: string
   children?: ReactNode
 }
 
-export function DialogTodoForm({ id, todolistId, children }: DialogRoomProps) {
-  const { data: todo, isFetched } = useGetTodoById(id!)
-
+export function DialogTodolistForm({ id, boardId, children }: DialogRoomProps) {
+  const { data: Todolist, isFetched } = useGetTodolistById(id!)
   const [open, setOpen] = useState(false)
 
   const handleOpenChange = () => {
@@ -53,19 +52,19 @@ export function DialogTodoForm({ id, todolistId, children }: DialogRoomProps) {
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="text-h2 mb-3 text-center font-normal">
-            {id ? "Edit todo" : "Create new todo"}
+            {id ? "Edit Todolist" : "Create new Todolist"}
           </DialogTitle>
         </DialogHeader>
         {id ? (
           isFetched && (
-            <TodoForm
-              todo={todo}
-              todolistId={todolistId}
+            <TodolistForm
+              boardId={boardId}
+              Todolist={Todolist}
               handleClose={handleOpenChange}
             />
           )
         ) : (
-          <TodoForm todolistId={todolistId} handleClose={handleOpenChange} />
+          <TodolistForm boardId={boardId} handleClose={handleOpenChange} />
         )}
       </DialogContent>
     </Dialog>

@@ -1,4 +1,5 @@
-import { Todo } from 'src/todo/todo.entity';
+
+import { Todolist } from 'src/todolist/todolist.entity';
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('board')
@@ -9,9 +10,9 @@ export class Board {
   @Column()
   title: string;
 
-  @OneToMany(() => Todo, (todo) => todo.board, { eager: true },)
+  @OneToMany(() => Todolist, (todolist) => todolist.board, { eager: true },)
   @JoinColumn({ name: 'boardId' })
-  todos: Todo[];
+  todolists: Todolist[];
 
   @CreateDateColumn()
   createdAt: Date

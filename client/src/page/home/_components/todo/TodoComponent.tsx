@@ -4,17 +4,18 @@ import { DropdownAction } from "./DropdownAction"
 import { IconCalendarEvent } from "@tabler/icons-react"
 import { dateHelpers } from "@/lib/dateHelpers"
 import { Badge } from "@/components/ui/badge"
-import { TodoVariant } from "@/types/todo"
 import { DropdownMove } from "./DropdownMove"
 import { useEffect } from "react"
-import { useGetTodo } from "@/ahooks/useTodo"
+
+import { useGetTodolist } from "@/ahooks/useTodolist"
+import { DropdownActionList } from "../todolist/DropdownActionList"
 
 interface TodoComponentProps {
   boardId: string
 }
 
 const TodoComponent = ({ boardId }: TodoComponentProps) => {
-  const getResult = useGetTodo({
+  const getResult = useGetTodolist({
     enabled: true,
 
     params: {
@@ -23,12 +24,11 @@ const TodoComponent = ({ boardId }: TodoComponentProps) => {
     },
   })
 
-  const { data: todoData, refetch } = getResult
+  const { data: todolistData, refetch } = getResult
 
   useEffect(() => {
     refetch()
   }, [refetch, boardId])
-
   return (
     <div>
       <div
@@ -37,50 +37,46 @@ const TodoComponent = ({ boardId }: TodoComponentProps) => {
           "sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
         )}
       >
-        {[
-          { value: TodoVariant.todo, label: "To Do" },
-          { value: TodoVariant.progress, label: "Progress" },
-          { value: TodoVariant.planned, label: "Planned" },
-          { value: TodoVariant.closed, label: "Closed" },
-        ].map((item) => (
-          <div key={item.value} className="paper-sharp">
+        {todolistData?.todolists.map((todolist) => (
+          <div key={todolist.id} className="paper-sharp">
             <div
               className={cn(
                 "p-1 flex justify-between items-center",
                 "border-t border-b border-black "
               )}
             >
-              <p className="text-h3">{item.label}</p>
-              <p className="text-h3">
-                {todoData?.todos.reduce((akk, todo) => {
-                  if (todo.variant === item.value) {
-                    akk++
-                  }
-                  return akk
-                }, 0)}
-              </p>
+              <p className="text-h3">{todolist.title}</p>
+              <div className="flex gap-3">
+                <p className="text-h3">{todolist.todos.length}</p>
+                <DropdownActionList todolistId={todolist.id} />
+              </div>
             </div>
             <div className="my-4 flex flex-col">
-              <DialogTodoForm boardId={boardId} />
+              <DialogTodoForm todolistId={todolist.id} />
             </div>
             <div className="space-y-3 mt-4">
-              {todoData?.todos
-                .filter((todo) => todo.variant === item.value)
-                .map((item) => (
-                  <div key={item.id} className="paper-rounded space-y-3">
-                    <div className="flex justify-between">
-                      <p>{item.title}</p>
-                      <DropdownAction todo={item} boardId={boardId} />
-                    </div>
-                    <p className="line-clamp-2">{item.description}</p>
-                    <div className="flex gap-3">
-                      <IconCalendarEvent />
-                      <span>{dateHelpers.getDayMonthYear(item.deadline)}</span>
-                    </div>
-                    <Badge variant="muted">{item.priority}</Badge>
-                    <DropdownMove todo={item} />
+              {todolist?.todos.map((todo) => (
+                <div key={todo.id} className="paper-rounded space-y-3">
+                  <div className="flex justify-between">
+                    <p>{todo.title}</p>
+                    <DropdownAction
+                      todo={todo}
+                      todolistId={todolist.id}
+                      todolists={todolistData?.todolists}
+                    />
                   </div>
-                ))}
+                  <p className="line-clamp-2">{todo.description}</p>
+                  <div className="flex gap-3">
+                    <IconCalendarEvent />
+                    <span>{dateHelpers.getDayMonthYear(todo.deadline)}</span>
+                  </div>
+                  <Badge variant="muted">{todo.priority}</Badge>
+                  <DropdownMove
+                    todo={todo}
+                    todolists={todolistData?.todolists}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         ))}

@@ -18,13 +18,15 @@ import { useState } from "react"
 import InfoTodoModal from "./InfoTodoModal"
 import { ITodo } from "@/types/todo"
 import { useDeleteTodoById } from "@/ahooks/useTodo"
+import { ITodolist } from "@/types/todolist"
 
 interface DropdownActionProps {
   todo: ITodo
-  boardId: string
+  todolistId: string
+  todolists?: ITodolist[]
 }
 
-export function DropdownAction({ boardId, todo }: DropdownActionProps) {
+export function DropdownAction({ todolistId, todo }: DropdownActionProps) {
   const [openmodal, setOpenModal] = useState(false)
 
   const handleOpenModalChangeModal = () => {
@@ -50,7 +52,7 @@ export function DropdownAction({ boardId, todo }: DropdownActionProps) {
           </InfoTodoModal>
         </DropdownMenuLabel>
         <DropdownMenuLabel onClick={() => setOpenModal(true)}>
-          <DialogTodoForm id={todo.id} boardId={boardId}>
+          <DialogTodoForm id={todo.id} todolistId={todolistId}>
             <div className="flex gap-5">
               <IconEdit />
               <p className="text-lg1">Edit</p>

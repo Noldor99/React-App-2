@@ -9,18 +9,23 @@ import { BoardModule } from 'src/board/board.module';
 import { TodoModule } from 'src/todo/todo.module';
 import { BoardSeed } from './generation/boardSeed';
 import { TodoSeed } from './generation/todoSeed';
+import { Todolist } from 'src/todolist/todolist.entity';
+import { TodolistModule } from 'src/todolist/todolist.module';
+import { TodolistSeed } from './generation/todolistSeed';
 
 @Module({
   imports: [
     DatabaseModule,
-    TypeOrmModule.forFeature([Board, Todo]),
+    TypeOrmModule.forFeature([Board, Todolist, Todo]),
     BoardModule,
+    TodolistModule,
     TodoModule
   ],
   providers: [
     SeedService,
     ResetTotalDataSeed,
     BoardSeed,
+    TodolistSeed,
     TodoSeed,
   ],
   exports: [SeedService]

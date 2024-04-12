@@ -22,8 +22,8 @@ interface IHistory {
   description?: string;
   descriptionOld?: string;
 
-  variant?: TodoVariant
-  variantOld?: TodoVariant
+  variant?: TodoVariant | string
+  variantOld?: TodoVariant | string
 
   priority?: TodoPriority
   priorityOld?: TodoPriority

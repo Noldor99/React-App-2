@@ -4,6 +4,7 @@ import { SeederInterface } from './seeder.interface'
 import { ResetTotalDataSeed } from './generation/resetTotalDataSeed'
 import { BoardSeed } from './generation/boardSeed'
 import { TodoSeed } from './generation/todoSeed'
+import { TodolistSeed } from './generation/todolistSeed'
 
 
 const isProdaction = process.env.NODE_ENV === 'prodaction'
@@ -16,6 +17,7 @@ export class SeedService {
   constructor(
     private readonly resetTotalDataSeed: ResetTotalDataSeed,
     private readonly boardSeed: BoardSeed,
+    private readonly todolistSeed: TodolistSeed,
     private readonly todoSeed: TodoSeed,
 
   ) {
@@ -23,12 +25,14 @@ export class SeedService {
       ? [
         this.resetTotalDataSeed,
         this.boardSeed,
+        this.todolistSeed,
         this.todoSeed,
 
       ]
       : [
         this.resetTotalDataSeed,
         this.boardSeed,
+        this.todolistSeed,
         this.todoSeed,
 
 

@@ -9,7 +9,7 @@ export class QueryTodoParamsDto {
   limit?: string;
 
   @IsOptional()
-  boardId?: string;
+  todolistId?: string;
 
   @IsOptional()
   variant?: TodoVariant;

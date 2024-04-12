@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { TodoPriority, TodoVariant } from './type';
-import { Board } from 'src/board/board.entity';
+import { TodoPriority } from './type';
+import { Todolist } from 'src/todolist/todolist.entity';
 
 @Entity('todo')
 export class Todo {
@@ -13,9 +13,6 @@ export class Todo {
   @Column()
   description: string;
 
-  @Column({ type: 'enum', enum: TodoVariant })
-  variant: TodoVariant;
-
   @Column({ type: 'enum', enum: TodoPriority, default: TodoPriority.low })
   priority: TodoPriority;
 
@@ -25,12 +22,12 @@ export class Todo {
   @CreateDateColumn()
   createdAt: Date
 
-  @ManyToOne(() => Board, (board) => board.todos, {
+  @ManyToOne(() => Todolist, (todolist) => todolist.todos, {
     onDelete: 'CASCADE',
   })
-  board: Board;
+  todolist: Todolist;
 
   @Column()
-  boardId: string;
+  todolistId: string;
 
 }

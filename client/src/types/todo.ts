@@ -1,9 +1,4 @@
-export enum TodoVariant {
-  todo = 'todo',
-  planned = 'planned',
-  progress = 'progress',
-  closed = 'closed',
-}
+
 
 export enum TodoPriority {
   low = 'low',
@@ -20,7 +15,7 @@ export interface ITodo {
   id: string
   title: string
   description: string
-  variant: TodoVariant
+  variant: string
   priority: TodoPriority
   deadline: Date
   createdAt: Date

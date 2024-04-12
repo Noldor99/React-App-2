@@ -24,10 +24,10 @@ export const useCreateTodo = () => {
         id: data.id,
         boardId: data.boardId,
         todoName: data.title,
-        variant: data.variant
+
       });
       queryClient.invalidateQueries({
-        queryKey: ['todo'],
+        queryKey: ['todolist'],
       })
     },
   })
@@ -43,7 +43,7 @@ export const useUpdateTodo = (id: string) => {
     onSuccess: () => {
 
       queryClient.invalidateQueries({
-        queryKey: ['todo'],
+        queryKey: ['todolist'],
       })
       // queryClient.invalidateQueries({
       //   queryKey: ['todo', id],
@@ -60,7 +60,7 @@ export const useGetTodo = ({
   params?: QueryTodoParams
 }) =>
   useQuery({
-    queryKey: ['todo', params?.boardId],
+    queryKey: ['todolist', params?.boardId],
     queryFn: () => apiTodo.getAll(params ?? {}),
     enabled,
   })
@@ -79,7 +79,7 @@ export const useDeleteTodoById = () => {
         todoName: data.title,
       });
       queryClient.invalidateQueries({
-        queryKey: ['todo'],
+        queryKey: ['todolist'],
       })
     },
   })
@@ -89,7 +89,7 @@ export const useGetTodoById = (id: string) => {
   const queryClient = useQueryClient()
 
   const query = useQuery({
-    queryKey: ['todo', id],
+    queryKey: ['todolist', id],
     queryFn: () => apiTodo.getOne(id),
     enabled: !!id && id !== 'Add',
   })
@@ -98,7 +98,7 @@ export const useGetTodoById = (id: string) => {
   useEffect(() => {
     if (isSuccess) {
       queryClient.invalidateQueries({
-        queryKey: ['todo'],
+        queryKey: ['todolist'],
       })
     }
   }, [isSuccess, queryClient])

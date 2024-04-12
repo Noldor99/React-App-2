@@ -3,14 +3,14 @@ import { HistoryAction } from "@/store/slice/historySlice";
 
 import { ITodo } from "@/types/todo";
 
-export function historyToSlice(dispatch: ReturnType<typeof useTypedDispatch>, fields: Partial<ITodo>, todoNew: ITodo) {
+export function historyToSlice(dispatch: ReturnType<typeof useTypedDispatch>, fields: Partial<ITodo>, todoNew: ITodo, boardId: string) {
   const addHistory = dispatch.addHistory;
-
+  console.log(todoNew)
   if (fields.title) {
     addHistory({
       action: HistoryAction.ReName,
       id: todoNew.id,
-      boardId: todoNew.boardId,
+      boardId: boardId,
       todoOldName: todoNew.title,
       todoName: fields.title
     });
@@ -20,7 +20,7 @@ export function historyToSlice(dispatch: ReturnType<typeof useTypedDispatch>, fi
     addHistory({
       action: HistoryAction.ReDescription,
       id: todoNew.id,
-      boardId: todoNew.boardId,
+      boardId: boardId,
       todoName: todoNew.title,
       descriptionOld: todoNew.description,
       description: fields.description
@@ -31,7 +31,7 @@ export function historyToSlice(dispatch: ReturnType<typeof useTypedDispatch>, fi
     addHistory({
       action: HistoryAction.Move,
       id: todoNew.id,
-      boardId: todoNew.boardId,
+      boardId: boardId,
       todoName: todoNew.title,
       variantOld: todoNew.variant,
       variant: fields.variant
@@ -42,7 +42,7 @@ export function historyToSlice(dispatch: ReturnType<typeof useTypedDispatch>, fi
     addHistory({
       action: HistoryAction.Priority,
       id: todoNew.id,
-      boardId: todoNew.boardId,
+      boardId: boardId,
       todoName: todoNew.title,
       priorityOld: todoNew.priority,
       priority: fields.priority
@@ -53,7 +53,7 @@ export function historyToSlice(dispatch: ReturnType<typeof useTypedDispatch>, fi
     addHistory({
       action: HistoryAction.Deadline,
       id: todoNew.id,
-      boardId: todoNew.boardId,
+      boardId: boardId,
       todoName: todoNew.title,
       deadlineOld: todoNew.deadline,
       deadline: fields.deadline

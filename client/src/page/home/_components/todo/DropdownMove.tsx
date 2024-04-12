@@ -12,16 +12,17 @@ import { IconChevronDown } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
 import { useUpdateTodo } from "@/ahooks/useTodo"
-import { variantItems } from "./Constants"
 import { useTypedDispatch } from "@/hook/useTypedDispatch"
 import { HistoryAction } from "@/store/slice/historySlice"
 import { ITodo } from "@/types/todo"
+import { ITodolist } from "@/types/todolist"
 
 interface DropdownMoveProps {
   todo: ITodo
+  todolists: ITodolist[]
 }
 
-export function DropdownMove({ todo }: DropdownMoveProps) {
+export function DropdownMove({ todo, todolists }: DropdownMoveProps) {
   const [open, setOpen] = useState(false)
 
   const { addHistory } = useTypedDispatch()
@@ -46,23 +47,29 @@ export function DropdownMove({ todo }: DropdownMoveProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-[240px]">
-        {variantItems.map((item: any) => (
+        {todolists.map((item) => (
           <DropdownMenuItem
-            key={item.value}
+            key={item.id}
             className="flex gap-5"
             onClick={() => {
-              updateTodo({ variant: item.value })
-              addHistory({
-                action: HistoryAction.Move,
-                id: todo.id,
-                boardId: todo.boardId,
-                todoName: todo.title,
-                variantOld: todo.variant,
-                variant: item.value,
-              })
+              updateTodo(
+                { todolistId: item.id },
+                {
+                  onSuccess: (data) => {
+                    addHistory({
+                      action: HistoryAction.Move,
+                      id: todo.id,
+                      boardId: data.boardId,
+                      todoName: todo.title,
+                      variantOld: todo.variant,
+                      variant: item.title,
+                    })
+                  },
+                }
+              )
             }}
           >
-            <p className="text-lg1">{item.label}</p>
+            <p className="text-lg1">{item.title}</p>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

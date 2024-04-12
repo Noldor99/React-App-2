@@ -1,4 +1,4 @@
-import { ITodo } from "./todo"
+import { ITodolist } from "./todolist"
 
 export interface IBoards {
   totalCount: number
@@ -10,7 +10,7 @@ export interface IBoard {
   id: string
   title: string
   createdAt: string
-  todos: ITodo[]
+  todolists: ITodolist[]
 }
 
 export type IBoardTitles = IBoardTitle[]

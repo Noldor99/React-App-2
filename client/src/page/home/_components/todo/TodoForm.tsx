@@ -19,7 +19,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { ITodo, TodoPriority } from "@/types/todo"
 import { FormRadioGroup, TRadioItem } from "@/components/form/FormRadioGroup"
 import FormCalendar from "@/components/form/FormCalendar"
-import { variantItems } from "./Constants"
+
 import { historyToSlice } from "@/utils"
 import { useTypedDispatch } from "@/hook/useTypedDispatch"
 import { FormTextarea } from "@/components/form/FormTextarea"
@@ -27,7 +27,7 @@ import { FormTextarea } from "@/components/form/FormTextarea"
 type TodoFormPropsType = {
   todo?: ITodo
   handleClose: () => void
-  boardId: string
+  todolistId: string
 }
 
 const priorityItems: TRadioItem[] = [
@@ -37,7 +37,7 @@ const priorityItems: TRadioItem[] = [
 ]
 
 export const TodoForm: FC<TodoFormPropsType> = (props: TodoFormPropsType) => {
-  const { todo, handleClose, boardId } = props
+  const { todo, handleClose, todolistId } = props
 
   const dispatch = useTypedDispatch()
 
@@ -86,13 +86,13 @@ export const TodoForm: FC<TodoFormPropsType> = (props: TodoFormPropsType) => {
       {} as ITodoSchema
     )
 
-    changedFields.boardId = boardId
+    changedFields.todolistId = todolistId
 
     const mutation = todo ? updateTodo : createTodo
 
     mutation(changedFields, {
-      onSuccess: () => {
-        todo && historyToSlice(dispatch, changedFields, todo)
+      onSuccess: (data) => {
+        todo && historyToSlice(dispatch, changedFields, todo, data.boardId)
         handleClose()
         toast({
           title: "Success",
@@ -124,14 +124,14 @@ export const TodoForm: FC<TodoFormPropsType> = (props: TodoFormPropsType) => {
             <FormCalendar name="deadline" />
 
             <div className="p-[10px] mt-2 flex justify-between w-full">
-              <div>
+              {/* <div>
                 <p className="mb-2">Variant:</p>
                 <FormRadioGroup
                   name="variant"
                   radioItems={variantItems}
                   grid={true}
                 />
-              </div>
+              </div> */}
               <div>
                 <p className="mb-2">Priority:</p>
                 <FormRadioGroup
@@ -156,8 +156,8 @@ export const TodoForm: FC<TodoFormPropsType> = (props: TodoFormPropsType) => {
                   ? !formState.isValid
                     ? true
                     : formState.isDirty
-                      ? false
-                      : true
+                    ? false
+                    : true
                   : false
               }
             >

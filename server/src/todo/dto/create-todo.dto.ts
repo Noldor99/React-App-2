@@ -10,7 +10,7 @@ export class CreateTodoDto {
     example: '000',
   })
   @IsNotEmpty()
-  readonly boardId: string;
+  readonly todolistId: string;
 
   @ApiProperty({
     example: 'Amber',
@@ -28,14 +28,6 @@ export class CreateTodoDto {
   @IsString()
   @Length(3, 300)
   readonly description: string;
-
-  @ApiProperty({
-    example: 'planned',
-  })
-  @IsNotEmpty()
-  @IsString()
-  @IsIn(Object.values(TodoVariant))
-  readonly variant: TodoVariant;
 
   @ApiProperty({
     example: 'medium',
