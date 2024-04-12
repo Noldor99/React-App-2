@@ -1,4 +1,4 @@
-import { TodoPriority, TodoVariant } from "@/types/todo";
+import { TodoPriority } from "@/types/todo";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export enum HistoryAction {
@@ -22,8 +22,8 @@ interface IHistory {
   description?: string;
   descriptionOld?: string;
 
-  variant?: TodoVariant | string
-  variantOld?: TodoVariant | string
+  variant?: string
+  variantOld?: string
 
   priority?: TodoPriority
   priorityOld?: TodoPriority
